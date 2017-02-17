@@ -1,15 +1,13 @@
-function [ P ] = Reject_Probability( X )
-%IF WE TEST X CHIPS WHAT IS THE PROBABILITY THAT WE WILL REJECT THIS SAMPLE
-Reject = 0;
-for i = 1:1000
-        r = randi([1 125],1,X);
-        for j = 1:X
-            if r(j) <= 6
-                Reject = Reject + 1;
-                break
-            end
-        end
+function[p]=reject_probability( x )
+reject=0;
+s=ones(1,125);
+for i=1:6
+    s(i)=0;
 end
-P = Reject / 1000;
+for j=1:1000
+    x=randsample(s,x,0);
+    if ismember(0,x)
+        reject=reject+1;
+    end 
 end
-
+ p=reject/1000;
